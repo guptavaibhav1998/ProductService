@@ -1,7 +1,7 @@
 package com.scaler.productservice.services;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,6 +10,8 @@ import com.scaler.productservice.models.Product;
 
 import dtos.FakeStoreProductDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.core.ParameterizedTypeReference;
 
 @Service
 public class FakeStoreProductService implements ProductService {
@@ -56,7 +58,20 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        ResponseEntity<List<FakeStoreProductDto>> responseEntity = 
+        restTemplate.exchange(
+            "https://fakestoreapi.com/products",
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<FakeStoreProductDto>>() {}
+        );
+
+        List<FakeStoreProductDto> fakeStoreProductDtos = responseEntity.getBody();
+        List<Product> products = new ArrayList<Product>();
+        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
+            products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
+        }
+        return products;
     }
 
     @Override
