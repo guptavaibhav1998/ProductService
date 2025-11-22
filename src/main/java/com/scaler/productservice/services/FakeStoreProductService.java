@@ -28,6 +28,8 @@ public class FakeStoreProductService implements ProductService {
         // So we need to call the fake store API to get the product with the given productId.
         // https://fakestoreapi.com/products/1
 
+        // throw new RuntimeException("Product not found");
+
         ResponseEntity<FakeStoreProductDto> responseEntity = 
         restTemplate.getForEntity(
             "https://fakestoreapi.com/products/" + productId, 
