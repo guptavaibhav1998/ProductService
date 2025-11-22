@@ -58,15 +58,30 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        ResponseEntity<List<FakeStoreProductDto>> responseEntity = 
-        restTemplate.exchange(
+
+        // This is the old way to get the products from the fake store.
+        // ResponseEntity<List<FakeStoreProductDto>> responseEntity = 
+        // restTemplate.exchange(
+        //     "https://fakestoreapi.com/products",
+        //     HttpMethod.GET,
+        //     null,
+        //     new ParameterizedTypeReference<List<FakeStoreProductDto>>() {}
+        // );
+
+        // List<FakeStoreProductDto> fakeStoreProductDtos = responseEntity.getBody();
+        // List<Product> products = new ArrayList<Product>();
+        // for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
+        //     products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
+        // }
+        // return products;
+
+        // This is the new way to get the products from the fake store. We are using array of FakeStoreProductDto to get the products. and this is working because of type erasure in Java.
+        ResponseEntity<FakeStoreProductDto[]> responseEntity = restTemplate.getForEntity(
             "https://fakestoreapi.com/products",
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<List<FakeStoreProductDto>>() {}
+            FakeStoreProductDto[].class
         );
 
-        List<FakeStoreProductDto> fakeStoreProductDtos = responseEntity.getBody();
+        FakeStoreProductDto[] fakeStoreProductDtos = responseEntity.getBody();
         List<Product> products = new ArrayList<Product>();
         for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
             products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
