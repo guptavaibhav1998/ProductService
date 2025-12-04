@@ -12,5 +12,11 @@ public class ProductServiceExceptionHandler {
     public ResponseEntity<Void> handleRuntimeException(){
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handleNullPointerException(NullPointerException exception){
+        return new ResponseEntity<>("Please try again with a valid product id", HttpStatus.NOT_FOUND);
+    }
 } 
   

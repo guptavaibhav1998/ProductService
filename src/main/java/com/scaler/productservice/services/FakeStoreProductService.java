@@ -41,9 +41,9 @@ public class FakeStoreProductService implements ProductService {
     }
 
     private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto) {
-        if (fakeStoreProductDto == null) {
-            return null;
-        }
+        // if (fakeStoreProductDto == null) {
+        //     return null;
+        // }
         Product product = new Product();
         product.setId(fakeStoreProductDto.getId());
         product.setTitle(fakeStoreProductDto.getTitle());
