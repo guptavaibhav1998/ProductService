@@ -13,7 +13,7 @@ import com.scaler.productservice.models.Product;
 import com.scaler.productservice.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-
+import com.scaler.productservice.exceptions.ProductNotFoundException;
 @RestController
 @RequestMapping("/products") // This is the endpoint for this controller. Till this point, the endpoint is localhost:8080/products
 public class ProductController {
@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public Product getSingleProduct(@PathVariable("productId") String productId){
+    public Product getSingleProduct(@PathVariable("productId") String productId) throws ProductNotFoundException {
         // try {
         //     Product product = productService.getSingleProduct(productId);
 
