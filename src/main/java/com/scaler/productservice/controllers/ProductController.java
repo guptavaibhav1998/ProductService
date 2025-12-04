@@ -25,16 +25,18 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("productId") String productId){
-        try {
-            Product product = productService.getSingleProduct(productId);
+    public Product getSingleProduct(@PathVariable("productId") String productId){
+        // try {
+        //     Product product = productService.getSingleProduct(productId);
 
-            ResponseEntity<Product> responseEntity = new ResponseEntity<Product>(product,HttpStatus.OK);
-            return responseEntity;
-        } catch (RuntimeException e) {
-            ResponseEntity<Product> responseEntity = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            return responseEntity;
-        }
+        //     ResponseEntity<Product> responseEntity = new ResponseEntity<Product>(product,HttpStatus.OK);
+        //     return responseEntity;
+        // } catch (RuntimeException e) {
+        //     ResponseEntity<Product> responseEntity = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        //     return responseEntity;
+        // }
+
+        return productService.getSingleProduct(productId);
     }
 
     @GetMapping()
